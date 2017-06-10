@@ -30,30 +30,53 @@ window.onload=function(){
     for(var i=0;i<4;i++){
         grid[i]=[0,0,0,0];
     }
+
     var boxwidth=app.renderer.width ;
+    var rowIndex = randomNumber();
+    var lineIndex = randomNumber();
+    grid[lineIndex][rowIndex]=2;
+
+
     for(var i=0;i<4;i++) {
         for(var j=0;j<4;j++) {
-            var graphics = new PIXI.Graphics();
-            graphics.lineStyle(8, 0x6495ED, 1);
-            graphics.beginFill(0xFF700B, 1);
-            graphics.drawRect(boxwidth / 6+j*boxwidth/6, app.renderer.height / 3+i*boxwidth/6, boxwidth / 6, boxwidth / 6);
-            app.stage.addChild(graphics);
+            if(grid[i][j]===2) {
+                randomGrid(j, i, grid[i][j]);
+            }
+            else {
+                initialGrid(j,i)
+            }
         }
     }
+
     function randomNumber(){
         return Math.floor(Math.random()*4);
     }
-    var x=randomNumber();
-    var y=randomNumber();
-    var graphics = new PIXI.Graphics();
-    graphics.lineStyle(8, 0x6495ED, 1);
-    graphics.beginFill(0xEEEE00, 1);
-    graphics.drawRect(boxwidth / 6+x*boxwidth/6, app.renderer.height / 3+y*boxwidth/6, boxwidth / 6, boxwidth / 6);
-    app.stage.addChild(graphics);
 
-    var number=new PIXI.Text('2',{fontSize: app.renderer.width / 8,fill: ['#ffffff']});
-    number.x = boxwidth / 6+ (x+1)*boxwidth/6-boxwidth/12;
-    number.y = app.renderer.height / 3+(y+1)*boxwidth/6-boxwidth/12;
-    number.anchor.set(0.5);
-    app.stage.addChild(number);
+    function initialGrid(row,line) {
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(8, 0x6495ED, 1);
+        graphics.beginFill(0xFF700B, 1);
+        graphics.drawRect(boxwidth / 6 + row * boxwidth / 6, app.renderer.height / 3 + line * boxwidth / 6, boxwidth / 6, boxwidth / 6);
+        app.stage.addChild(graphics);
+    }
+
+    function randomGrid(row,line,number) {
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(8, 0x6495ED, 1);
+        graphics.beginFill(0xEEEE00, 1);
+        graphics.drawRect(boxwidth / 6 + row * boxwidth / 6, app.renderer.height / 3 + line * boxwidth / 6, boxwidth / 6, boxwidth / 6);
+        app.stage.addChild(graphics);
+
+        var number = new PIXI.Text(number, {fontSize: app.renderer.width / 8, fill: ['#ffffff']});
+        number.x = boxwidth / 6 + (row + 1) * boxwidth / 6 - boxwidth / 12;
+        number.y = app.renderer.height / 3 + (line + 1) * boxwidth / 6 - boxwidth / 12;
+        number.anchor.set(0.5);
+        app.stage.addChild(number);
+    }
+
+    document.addEventListener('keydown',function(event){
+        if(event.key==='ArrowRight'){
+            console.log(event);
+        }
+    })
 }
