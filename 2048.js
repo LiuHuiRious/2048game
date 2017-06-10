@@ -48,12 +48,12 @@ window.onload=function(){
     var graphics = new PIXI.Graphics();
     graphics.lineStyle(8, 0x6495ED, 1);
     graphics.beginFill(0xEEEE00, 1);
-    graphics.drawRect(boxwidth / 6, app.renderer.height / 3, boxwidth / 6, boxwidth / 6);
+    graphics.drawRect(boxwidth / 6+x*boxwidth/6, app.renderer.height / 3+y*boxwidth/6, boxwidth / 6, boxwidth / 6);
     app.stage.addChild(graphics);
 
     var number=new PIXI.Text('2',{fontSize: app.renderer.width / 8,fill: ['#ffffff']});
-    number.x = boxwidth / 6+boxwidth/12;
-    number.y = app.renderer.height / 3+boxwidth/12;
+    number.x = boxwidth / 6+ (x+1)*boxwidth/6-boxwidth/12;
+    number.y = app.renderer.height / 3+(y+1)*boxwidth/6-boxwidth/12;
     number.anchor.set(0.5);
     app.stage.addChild(number);
 }
